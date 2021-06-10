@@ -1,14 +1,29 @@
 import { useState } from 'react';
-import './App.css';
+import styled, {createGlobalStyle} from 'styled-components';
+import Button from './components/Button'
+import PageHeader from './components/PageHeader';
+import Box from './components/Box';
+
+const GlobalStyle = createGlobalStyle`
+  body,
+  button,
+  textarea {
+    font-family: "Open Sans";
+  }
+`;
+
+const AppContainer = styled.div`
+  margin: 0 243px;
+`;
 
 const App = () => {
   const [nameBlock, setNameBlock] = useState('');
   const [selectedName, setSelectedName] = useState();
 
   const handleDrawName = () => {
-    const nameList = nameBlock.split(/[\r\n]+/)
-    const randomIndex = Math.floor(Math.random() * nameList.length)
-    setSelectedName(nameList[randomIndex])
+    const nameList = nameBlock.split(/[\r\n]+/);
+    const randomIndex = Math.floor(Math.random() * nameList.length);
+    setSelectedName(nameList[randomIndex]);
   }
 
   const handleNameBlockChange = (evt) => {
@@ -25,15 +40,26 @@ const App = () => {
   const isDrawDisabled = !Boolean(nameBlock)
 
   return (
-    <div className="App">
-      <button disabled={isDrawDisabled} onClick={handleDrawName}>{Boolean(selectedName) ? 'Redraw Name' : 'Draw Name'}</button>
-      {(Boolean(nameBlock) || Boolean(selectedName)) && <button onClick={handleClear}>Clear</button>}
-
+    <AppContainer>
+      <GlobalStyle/>
+      <PageHeader>Name Draw</PageHeader>
+      <Box>
+        <p>Draw a Name!</p>
+        <p>Enter one name per line below</p>
+        <Button disabled={isDrawDisabled} onClick={handleDrawName}>{Boolean(selectedName) ? 'Redraw Name' : 'Draw Name'}</Button>
+      {(Boolean(nameBlock) || Boolean(selectedName)) && <Button onClick={handleClear}>Clear</Button>}
       <textarea placeholder="Enter Names" value={nameBlock} onChange={handleNameBlockChange} />
-      { Boolean(selectedName) && <p>{selectedName}</p>}
-    </div>
+      </Box>
+      
+      { Boolean(selectedName) && <Box><p>{selectedName}</p></Box>}
+
+    </AppContainer>
+
   );
 }
+
+
+
 
 export default App;
 
