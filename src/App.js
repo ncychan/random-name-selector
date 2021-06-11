@@ -3,12 +3,19 @@ import styled, {createGlobalStyle} from 'styled-components';
 import Button from './components/Button'
 import PageHeader from './components/PageHeader';
 import Box from './components/Box';
+import AppBody from './components/AppBody';
+import TextArea from './components/TextArea';
+import ButtonWrapper from './components/ButtonWrapper';
 
 const GlobalStyle = createGlobalStyle`
   body,
   button,
   textarea {
     font-family: "Open Sans";
+  }
+
+  * {
+    box-sizing: border-box;
   }
 `;
 
@@ -43,16 +50,21 @@ const App = () => {
     <AppContainer>
       <GlobalStyle/>
       <PageHeader>Name Draw</PageHeader>
-      <Box>
-        <p>Draw a Name!</p>
-        <p>Enter one name per line below</p>
-        <Button disabled={isDrawDisabled} onClick={handleDrawName}>{Boolean(selectedName) ? 'Redraw Name' : 'Draw Name'}</Button>
-      {(Boolean(nameBlock) || Boolean(selectedName)) && <Button onClick={handleClear}>Clear</Button>}
-      <textarea placeholder="Enter Names" value={nameBlock} onChange={handleNameBlockChange} />
-      </Box>
-      
-      { Boolean(selectedName) && <Box><p>{selectedName}</p></Box>}
+      <AppBody>
+        <Box width={60}>
+          <p>Draw a Name!</p>
+          <p>Enter one name per line below</p>
+          <TextArea placeholder="Enter Names" value={nameBlock} onChange={handleNameBlockChange} />
+          
+          <ButtonWrapper> 
+            <Button disabled={isDrawDisabled} onClick={handleDrawName}>{Boolean(selectedName) ? 'Redraw Name' : 'Draw Name'}</Button>
+            {(Boolean(nameBlock) || Boolean(selectedName)) && <Button onClick={handleClear}>Clear</Button>}
+          </ButtonWrapper>
+        </Box>
 
+        
+        { Boolean(selectedName) && <Box width={40}><p>{selectedName}</p></Box>}
+      </AppBody>
     </AppContainer>
 
   );
