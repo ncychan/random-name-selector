@@ -8,7 +8,10 @@ const Box = styled.section`
     p:first-of-type {
         margin-top: 0;
     }
-`;
 
+    ${(p) => p.width !== undefined && `
+    flex-basis: ${p.width}%;
+    `} 
+`;
 
 export default Box;
