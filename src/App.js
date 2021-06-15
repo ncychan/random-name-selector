@@ -17,7 +17,20 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  h2 {
+    margin-top: 0;
+  }
 `;
+
+const ResultName = styled.p`
+  font-family: 'Englebert', sans-serif;
+  color: #93AF9A;
+  font-size: 56px;
+  text-align: center;
+  margin-top: 100px;
+`;
+
 
 const AppContainer = styled.div`
   margin: 0 243px;
@@ -52,18 +65,30 @@ const App = () => {
       <PageHeader>Name Draw</PageHeader>
       <AppBody>
         <Box width={60}>
-          <p>Draw a Name!</p>
+          <h2>Draw a Name!</h2>
           <p>Enter one name per line below</p>
-          <TextArea placeholder="Enter Names" value={nameBlock} onChange={handleNameBlockChange} />
+          <TextArea 
+            placeholder="Enter Names" 
+            value={nameBlock} 
+            onChange={handleNameBlockChange} 
+          />
           
           <ButtonWrapper> 
-            <Button disabled={isDrawDisabled} onClick={handleDrawName}>{Boolean(selectedName) ? 'Redraw Name' : 'Draw Name'}</Button>
-            {(Boolean(nameBlock) || Boolean(selectedName)) && <Button onClick={handleClear}>Clear</Button>}
+            <Button disabled={isDrawDisabled} onClick={handleDrawName}>
+              {Boolean(selectedName) ? 'Redraw Name' : 'Draw Name'}
+            </Button>
+            {(Boolean(nameBlock) || Boolean(selectedName)) && (
+              <Button onClick={handleClear}>Clear</Button>
+            )}
           </ButtonWrapper>
         </Box>
-
         
-        { Boolean(selectedName) && <Box width={40}><p>{selectedName}</p></Box>}
+        { Boolean(selectedName) && (
+          <Box isLast>
+            <h2>Result</h2>
+            <ResultName>{selectedName}</ResultName>
+          </Box>
+        )}
       </AppBody>
     </AppContainer>
 
