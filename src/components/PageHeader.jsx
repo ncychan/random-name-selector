@@ -5,6 +5,7 @@ const PageHeader = styled.h1`
   color: #93AF9A;
   font-size: 75px;
   margin-top: 70px;
+  font-weight: 400
 `;
 
 export default PageHeader;
